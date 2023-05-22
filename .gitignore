@@ -1,0 +1,9 @@
+.git
+.idea
+api/.idea
+api/.pytest_cache
+api/__pycache__
+api/migrations/versions
+api/venv
+api/.env
+frontend/node_modules
