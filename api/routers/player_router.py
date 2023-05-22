@@ -20,6 +20,7 @@ async def get_all_players(session: Session = Depends(get_session)):
     player_service = PlayerService(session)
     return await player_service.get_all_players()
 
+
 @router.get('/{player_id}')
 async def get_player(player_id: int,
                      session: Session = Depends(get_session)):

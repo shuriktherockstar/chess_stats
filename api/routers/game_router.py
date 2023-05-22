@@ -9,15 +9,17 @@ router = APIRouter(prefix='/games')
 
 
 @router.post('/')
-async def create_game(player: game_schemas.GameCreate,
+async def create_game(game: game_schemas.GameCreate,
                       session: Session = Depends(get_session)):
     game_service = GameService(session)
-    return await game_service.create_game(player)
+    return await game_service.create_game(game)
+
 
 @router.get('/')
 async def get_all_games(session: Session = Depends(get_session)):
     game_service = GameService(session)
     return await game_service.get_all_games()
+
 
 @router.get('/{game_id}')
 async def get_game(game_id: int,
