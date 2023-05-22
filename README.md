@@ -7,4 +7,4 @@
 7) `cd ../frontend`
 8) `npm install`
 9) Запуск сервера api - `uvicorn main:app --reload` (из папки `api`)
-10) Запуск сервера frontend - `npm run server` (из папки `frontend`)
+10) Запуск сервера frontend - `npm run serve` (из папки `frontend`)
