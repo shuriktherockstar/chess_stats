@@ -23,6 +23,9 @@ async def test_is_valid_player():
     player = PlayerCreate(name='Magnus', surname='C arlsen')
     assert PlayerService.is_valid_player(player) is True
 
+    player = PlayerCreate(name='Magnus', surname='C-arlsen')
+    assert PlayerService.is_valid_player(player) is True
+
 
 @pytest.mark.asyncio
 async def test_capitalize_player():
@@ -45,7 +48,7 @@ async def test_capitalize_player():
 
 @pytest.mark.asyncio
 async def test_create_player(test_session: Session):
-    test_player = Player(name='Magnus', surname='Carlsen')
+    test_player = Player(name='magnus', surname='carlsen')
     service = PlayerService(test_session)
     created_player = await service.create_player(test_player)
 
@@ -57,6 +60,10 @@ async def test_create_player(test_session: Session):
 
 @pytest.mark.asyncio
 async def test_get_all_players(test_session: Session):
+    test_player = Player(name='Magnus', surname='Carlsen')
+    test_session.add(test_player)
+    test_session.commit()
+
     service = PlayerService(test_session)
     players = await service.get_all_players()
 

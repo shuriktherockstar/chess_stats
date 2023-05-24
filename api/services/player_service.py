@@ -35,7 +35,7 @@ class PlayerService:
 
     async def get_all_players(self):
         db_players = self.session.query(player_models.Player).all()
-        return [db_player for db_player in db_players]
+        return db_players
 
     async def get_player(self, player_id: int):
         db_player = self.session.query(player_models.Player).filter(
@@ -45,6 +45,10 @@ class PlayerService:
 
     async def delete_player(self, player_id: int):
         db_player = await self.get_player(player_id)
+        player_id = db_player.id
         if db_player:
             self.session.delete(db_player)
             self.session.commit()
+        return {
+            'message': f'Игрок с id = {player_id} успешно удален'
+        }

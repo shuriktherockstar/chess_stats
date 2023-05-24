@@ -27,11 +27,21 @@ async def test_create_game(test_session: Session):
     assert game is not None
     assert game.player1_id == created_player1.id
     assert game.player2_id == created_player2.id
-    assert game.result == 'First won'
+    assert game.result == created_game.result
 
 
 @pytest.mark.asyncio
 async def test_get_all_games(test_session: Session):
+    test_player1 = Player(name='Magnus', surname='Karlsen')
+    test_player2 = Player(name='Ding', surname='Liren')
+
+    test_session.add_all([test_player1, test_player2])
+    test_session.commit()
+
+    test_game = Game(player1_id=test_player1.id, player2_id=test_player2.id, result='Tie')
+    test_session.add(test_game)
+    test_session.commit()
+
     service = GameService(test_session)
     games = await service.get_all_games()
 
@@ -56,7 +66,7 @@ async def test_get_game(test_session: Session):
     assert game is not None
     assert game.player1_id == test_player1.id
     assert game.player2_id == test_player2.id
-    assert game.result == 'Tie'
+    assert game.result == test_game.result
 
 
 @pytest.mark.asyncio
